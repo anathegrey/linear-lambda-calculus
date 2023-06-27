@@ -94,8 +94,8 @@ module Operational where
       Just (QValue q (RSumRight p z)) -> let s'  = updateStore s q y
                                              res = subst (x2, Var z) t2
                                          in (s', res)
-  eval s (Case t0 x1 t1 x2 t2) = let (s', t0') = eval s t0
-                                 in eval s' (Case t0' x1 t1 x2 t2)
+  eval s (Case e x1 t1 x2 t2) = let (s', e') = eval s e
+                                 in eval s' (Case e' x1 t1 x2 t2)
   eval s (Roll p@(Rec (TVar a) (Pre q p')) (Var y)) = let addr = nextAddr s
                                                           x = "a" ++ show addr
                                                       in (Map.insert x (QValue q (RRoll p y)) s, Var x)
